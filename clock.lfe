@@ -2,19 +2,28 @@
     (export all)) 
 
 (defun minutes-add (clock minsToAdd)
-    (let ((hours       (string:to_integer (lists:filter (lambda (charval) (/= charval #\0)) (string:sub_string clock 1 2))) )) ;fix 0
-        (let ((minutes (string:to_integer (lists:filter (lambda (charval) (/= charval #\0)) (string:sub_string clock 4 5))) )) ;fix 0
-            (let ((totalminutes (+ (+ (* 60 (element 1 hours)) (element 1 minutes)) minsToAdd) ))
-                (let ((newhours (rem (floor (/ totalminutes 60)) 24)))
-                (let ((newmins (rem totalminutes 60)))
-                ;convert to string before sending across
-                (makeclock (erlang:integer_to_list newhours) (erlang:integer_to_list newmins)) 
-                )
-                )
+    (let ((hours (string:sub_string clock 1 2) ))
+        (if (== "0" (string:sub_string hours 1)) ;get rid of first 0 if applicable i.e. 01
+            (let ((newHours (string:to_integer (string:sub_string clock 2 2)))
+            (let ((newHours (string:to_integer hours)))
+        ) 
+        (let ((minutes (string:sub_string hours 2 2) )) 
+            (if (== "0" (string:sub_string minutes 1)) ;get rid of first 0 if applicable i.e. 01
+                (let ((newMinutes (string:to_integer (string:sub_string minutes 2 2))))
+                (let ((newMinutes (string:to_integer minutes))) 
+                
+                (let ((totalminutes (+ (+ (* 60 (element 1 hours)) (element 1 minutes)) minsToAdd) )) 
+                    (let ((newhours (rem (floor (/ totalminutes 60)) 24)))
+                    (let ((newmins (rem totalminutes 60)))
+                    ;convert to string before sending across
+                    (makeclock (erlang:integer_to_list newhours) (erlang:integer_to_list newmins)) 
+                    )))))
             )
+        )))
         )
     )
 )
+    
 
 ; (defun minutes-delete (clock minsToDel)
 ;     (let ((hours (string:to_integer (string:sub_string clock 1 2))))
