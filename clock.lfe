@@ -47,7 +47,7 @@
         (let ((newHours (getridoffirst0 hours) ))
         (let ((minutes (string:sub_string newClock 4 5) )) 
             (let ((newMinutes (getridoffirst0 minutes) ))
-            (let ((totalminutes (checkneg (- (+ (* 60 (element 1 newHours)) (element 1 newMinutes)) minsToDel)) )) 
+            (let ((totalminutes (- (+ (* 60 (element 1 newHours)) (element 1 newMinutes)) minsToDel) )) 
                 (let ((finalHours (minushrs (rem (floor (/ totalminutes 60)) 24)) ))
                 (let ((finalMins (minusmins (rem totalminutes 60)) )) 
                 ;convert to string before sending across
